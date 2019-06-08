@@ -18,4 +18,5 @@ User can move using:
   - WASD for US keyboard layouts
   - ZQSD for FR keyboard layouts
   - Arrows
+
 Space bar can be used to start a new game
