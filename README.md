@@ -29,3 +29,11 @@ Builded versions can be found in:
   - 'build-w10' for Windows 10 users
 
 They all contain a 'Dodge The Creeps.zip' file, itself containing the playable game.
+
+## To do list
+
+- Random sizes
+- Reverse relation between speed and size
+- Power Ups
+- Difficulty in time
+- Highsore board
