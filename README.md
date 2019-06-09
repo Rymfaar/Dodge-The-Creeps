@@ -20,3 +20,12 @@ User can move using:
   - Arrows
 
 Space bar can be used to start a new game
+
+## Playable version
+
+Builded versions can be found in:
+  - 'build-linux' for Linux users
+  - 'build-macos' for MacOS users
+  - 'build-w10' for Windows 10 users
+
+They all contain a 'Dodge The Creeps.zip' file, itself containing the playable game.
