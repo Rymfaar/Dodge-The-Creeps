@@ -40,5 +40,4 @@ They all contain a 'Dodge The Creeps.zip' file, itself containing the playable g
 
 ## Bugs
 
-- Creeps not delete when restarting
-- Hit box main character
+- Creeps not deleted when restarting
