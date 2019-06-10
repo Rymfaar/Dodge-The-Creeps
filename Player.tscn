@@ -19,8 +19,9 @@ animations = [ {
 "speed": 4.0
 } ]
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 27.9136
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 27.6367
+height = 14.4726
 
 [sub_resource type="Gradient" id=3]
 colors = PoolColorArray( 1, 1, 1, 0.764706, 1, 1, 1, 0 )
@@ -54,7 +55,7 @@ frames = SubResource( 1 )
 animation = "MoveY"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.214645, -7.29771 )
+position = Vector2( 0.0231937, -0.162906 )
 shape = SubResource( 2 )
 
 [node name="Trail" type="Particles2D" parent="."]

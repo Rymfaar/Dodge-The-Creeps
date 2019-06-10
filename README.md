@@ -37,3 +37,8 @@ They all contain a 'Dodge The Creeps.zip' file, itself containing the playable g
 - Power Ups
 - Difficulty in time
 - Highsore board
+
+## Bugs
+
+- Creeps not delete when restarting
+- Hit box main character

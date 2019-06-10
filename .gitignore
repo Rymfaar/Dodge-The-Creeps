@@ -6,8 +6,3 @@ export_presets.cfg
 
 # Mono-specific ignores
 .mono/
-
-# build directory
-build-linux
-build-macos
-build-w10
