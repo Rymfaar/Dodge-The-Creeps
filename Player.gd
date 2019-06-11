@@ -54,4 +54,4 @@ func _on_Player_body_entered(body):
 func start(pos):
 	position = pos
 	show()
-	$CollisionShape2D.disabled = false
+	# Player's hitbox will be enabled when StartTimer stops (cf. Main.gd)

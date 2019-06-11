@@ -8,7 +8,13 @@ var mob_types = ["Flyer", "Swimmer", "Walker"]
 func _ready():
 	$AnimatedSprite.animation = mob_types[randi() % mob_types.size()]
 	$AnimatedSprite.play()
+	$Tween.interpolate_property(self, "scale", self.scale, Vector2(0,0), 0.5,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 
 # Will be called when a Mob exits the screen
 func _on_VisibilityNotifier2D_screen_exited():
+	queue_free()
+
+func destroy():
+	$Tween.start()
+	yield($Tween, "tween_completed")
 	queue_free()

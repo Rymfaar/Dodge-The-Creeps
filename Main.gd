@@ -1,5 +1,7 @@
 extends Node
 
+signal kill_all_mobs()
+
 export (PackedScene) var Mob
 var score
 
@@ -14,6 +16,7 @@ func game_over():
 	$Defeat.play()
 
 func new_game():
+	emit_signal("kill_all_mobs")
 	score = 0
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
@@ -26,6 +29,8 @@ func _on_MobTimer_timeout():
 	$MobSpawner/MobSpawnLocation.set_offset(randi())
 	# Create a Mob instance and add it to the scene.
 	var mob = Mob.instance()
+	# When starting a new game, the signal 'kill_all_mobs' will be emitted so remaining mobs will call the destroy function
+	connect("kill_all_mobs", mob, "destroy")
 	add_child(mob)
 	# Set the mob's direction perpendicular to the path direction.
 	var direction = $MobSpawner/MobSpawnLocation.rotation + PI/2
@@ -45,3 +50,5 @@ func _on_ScoreTimer_timeout():
 func _on_StartTimer_timeout():
 	$MobTimer.start()
 	$ScoreTimer.start()
+	# Enable Player's hitbox to make sure all old mobs are gone
+	$Player/CollisionShape2D.disabled = false
