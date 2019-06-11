@@ -32,12 +32,8 @@ They all contain a 'Dodge The Creeps.zip' file, itself containing the playable g
 
 ## To do list
 
-- Random sizes
-- Reverse relation between speed and size
-- Power Ups
-- Difficulty in time
-- Highsore board
-
-## Bugs
-
-- Creeps not deleted when restarting
+- Random sizes between 2 values
+- Reverse relation between speed and size (?)
+- Give 1 extra life every 15 seconds
+- Highsore on main menu
+- On/Off music button on main menu
