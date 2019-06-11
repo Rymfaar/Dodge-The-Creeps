@@ -6,3 +6,13 @@ export_presets.cfg
 
 # Mono-specific ignores
 .mono/
+
+# build directories
+build-linux/*.zip
+build-macos/*.zip
+build-macos/.zip
+build-w10/*.zip
+build-w10/*.exe
+build-w10/*.pck
+build-linux/*.x86_64
+build-linux/*.pck
