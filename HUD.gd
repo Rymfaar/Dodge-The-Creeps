@@ -6,17 +6,17 @@ func _ready():
 	$ScoreLabel.text = str(0)
 
 func show_message(text):
-    $MessageLabel.text = text
-    $MessageLabel.show()
-    $MessageTimer.start()
+	$MessageLabel.text = text
+	$MessageLabel.show()
+	$MessageTimer.start()
 
 func show_game_over():
-    show_message("Game Over")
-    yield($MessageTimer, "timeout")
-    $MessageLabel.text = "Dodge the\nCreeps!"
-    $MessageLabel.show()
-    yield(get_tree().create_timer(1), 'timeout')
-    $StartButton.show()
+	show_message("Game Over")
+	yield($MessageTimer, "timeout")
+	$MessageLabel.text = "Dodge the\nCreeps!"
+	$MessageLabel.show()
+	yield(get_tree().create_timer(1), 'timeout')
+	$StartButton.show()
 
 func update_score(score):
 	$ScoreLabel.text = str(score)
@@ -27,3 +27,6 @@ func _on_MessageTimer_timeout():
 func _on_StartButton_pressed():
 	$StartButton.hide()
 	emit_signal("start_game")
+
+func update_score_color(color):
+	get_node("ScoreLabel").add_color_override("font_color", color)

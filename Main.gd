@@ -9,6 +9,8 @@ func _ready():
 	randomize()
 
 func game_over():
+	$ExtraLifeTimer.stop()
+	$HUD.update_score_color(Color(255, 255, 255, 1))
 	$Music.stop()
 	$ScoreTimer.stop()
 	$MobTimer.stop()
@@ -16,6 +18,7 @@ func game_over():
 	$Defeat.play()
 
 func new_game():
+	$HUD.update_score_color(Color(241, 169, 0, 1))
 	emit_signal("kill_all_mobs")
 	score = 0
 	$Player.start($StartPosition.position)
@@ -50,5 +53,17 @@ func _on_ScoreTimer_timeout():
 func _on_StartTimer_timeout():
 	$MobTimer.start()
 	$ScoreTimer.start()
+	$ExtraLifeTimer.start()
 	# Enable Player's hitbox to make sure all old mobs are gone
 	$Player/CollisionShape2D.disabled = false
+
+func _on_ExtraLifeTimer_timeout():
+	$Player.extra_life += 1
+	match $Player.extra_life:
+		1:
+			print("ok")
+			$HUD.update_score_color(Color(195, 252, 0, 1))
+		2:
+			$HUD.update_score_color(Color(7, 252, 64, 1))
+		_:
+			$HUD.update_score_color(Color(241, 169, 0, 1))

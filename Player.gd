@@ -1,14 +1,17 @@
 extends Area2D
 
 signal hit
+signal immune
 
 export var SPEED = 400 # How fast the player will move (pixels/sec)
 var screen_size # Size of the game window
+var extra_life
 
 # When a prefab/node is created and enters the scene tree 
 func _ready():
 	hide()
 	screen_size = get_viewport_rect().size
+	extra_life = 0
 
 # Describe what the node/prefab will do at each frame / delta:
 # - check for inputs
@@ -41,6 +44,7 @@ func _process(delta):
 	elif velocity.y != 0:
 		$AnimatedSprite.animation = "MoveY"
 		$AnimatedSprite.flip_v = (true if velocity.y > 0 else false)
+	extra_life = clamp(extra_life, 0, 2)
 
 # Will be called when a RigidBody2D collide with the Player:
 # - Hide the Player
