@@ -44,6 +44,7 @@ scale_curve = SubResource( 6 )
 color_ramp = SubResource( 4 )
 
 [node name="Player" type="Area2D"]
+position = Vector2( -4.29596, -2.86394 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
