@@ -1,5 +1,12 @@
 extends Node
 
+# Color(float, float, float, float) avec float entre 0 et 1 (donc diviser par 255)
+# When Extra Life == 3 stop ExtraLifeTimer
+# Clamp only when ExtraLife changes
+# - si j'ai moins de 3 le timer est en route
+# - si j'ai plus de 3 le timer s'arrete
+# - si je consomme 1 des 3 il faut réactiver le timer
+
 signal kill_all_mobs()
 
 export (PackedScene) var Mob
@@ -10,7 +17,7 @@ func _ready():
 
 func game_over():
 	$ExtraLifeTimer.stop()
-	$HUD.update_score_color(Color(255, 255, 255, 1))
+	$HUD.update_score_color(Color(1, 1, 1))
 	$Music.stop()
 	$ScoreTimer.stop()
 	$MobTimer.stop()
@@ -18,7 +25,7 @@ func game_over():
 	$Defeat.play()
 
 func new_game():
-	$HUD.update_score_color(Color(241, 169, 0, 1))
+	$Player.extra_life = 0
 	emit_signal("kill_all_mobs")
 	score = 0
 	$Player.start($StartPosition.position)
@@ -51,6 +58,7 @@ func _on_ScoreTimer_timeout():
 	$HUD.update_score(score)
 
 func _on_StartTimer_timeout():
+	$HUD.update_score_color(Color(1, 0, 0))
 	$MobTimer.start()
 	$ScoreTimer.start()
 	$ExtraLifeTimer.start()
@@ -59,11 +67,11 @@ func _on_StartTimer_timeout():
 
 func _on_ExtraLifeTimer_timeout():
 	$Player.extra_life += 1
+	$Player.extra_life = clamp($Player.extra_life, 0, 2)
 	match $Player.extra_life:
 		1:
-			print("ok")
-			$HUD.update_score_color(Color(195, 252, 0, 1))
+			$HUD.update_score_color(Color(1, 1, 0))
 		2:
-			$HUD.update_score_color(Color(7, 252, 64, 1))
+			$HUD.update_score_color(Color(.28, .82, .8))
 		_:
-			$HUD.update_score_color(Color(241, 169, 0, 1))
+			$HUD.update_score_color(Color(1, 0, 0))

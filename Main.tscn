@@ -21,7 +21,7 @@ margin_left = -4.0
 margin_top = -5.0
 margin_right = 485.0
 margin_bottom = 727.0
-color = Color( 0.823529, 0.439216, 1, 1 )
+color = Color( 0.823529, 0.568627, 0.737255, 1 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 

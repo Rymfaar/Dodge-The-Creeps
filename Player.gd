@@ -44,7 +44,6 @@ func _process(delta):
 	elif velocity.y != 0:
 		$AnimatedSprite.animation = "MoveY"
 		$AnimatedSprite.flip_v = (true if velocity.y > 0 else false)
-	extra_life = clamp(extra_life, 0, 2)
 
 # Will be called when a RigidBody2D collide with the Player:
 # - Hide the Player
