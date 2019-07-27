@@ -1,19 +1,20 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
-[ext_resource path="res://assets/art/playerGrey_walk1.png" type="Texture" id=2]
-[ext_resource path="res://assets/art/playerGrey_walk2.png" type="Texture" id=3]
-[ext_resource path="res://assets/art/playerGrey_up1.png" type="Texture" id=4]
-[ext_resource path="res://assets/art/playerGrey_up2.png" type="Texture" id=5]
+[ext_resource path="res://assets/art/shield.png" type="Texture" id=2]
+[ext_resource path="res://assets/art/playerGrey_walk1.png" type="Texture" id=3]
+[ext_resource path="res://assets/art/playerGrey_walk2.png" type="Texture" id=4]
+[ext_resource path="res://assets/art/playerGrey_up1.png" type="Texture" id=5]
+[ext_resource path="res://assets/art/playerGrey_up2.png" type="Texture" id=6]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "MoveX",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "MoveY",
 "speed": 4.0
@@ -50,6 +51,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
+[node name="Shield" type="Sprite" parent="."]
+position = Vector2( -1.52588e-05, 0.663422 )
+scale = Vector2( 0.39496, 0.39496 )
+texture = ExtResource( 2 )
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 1 )
@@ -65,5 +71,14 @@ amount = 10
 speed_scale = 2.0
 local_coords = false
 process_material = SubResource( 7 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
+
+[node name="ImmunityTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="ShieldOn" type="Tween" parent="."]
+
+[node name="ShieldOff" type="Tween" parent="."]
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
+[connection signal="timeout" from="ImmunityTimer" to="." method="_on_ImmunityTimer_timeout"]

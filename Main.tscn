@@ -55,6 +55,7 @@ stream = ExtResource( 5 )
 [node name="Defeat" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 [connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="immune" from="Player" to="." method="_on_Player_immune"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]

@@ -7,14 +7,17 @@ extends Node
 # - si j'ai plus de 3 le timer s'arrete
 # - si je consomme 1 des 3 il faut réactiver le timer
 
-signal kill_all_mobs()
+signal kill_all_mobs
 
 export (PackedScene) var Mob
 var score
 
+# ------------------------------------------------------
 func _ready():
 	randomize()
 
+# ------------------------------------------------------
+# When `hit` signal is emitted
 func game_over():
 	$ExtraLifeTimer.stop()
 	$HUD.update_score_color(Color(1, 1, 1))
@@ -24,6 +27,7 @@ func game_over():
 	$HUD.show_game_over()
 	$Defeat.play()
 
+# ------------------------------------------------------
 func new_game():
 	$Player.extra_life = 0
 	emit_signal("kill_all_mobs")
@@ -34,6 +38,7 @@ func new_game():
 	$HUD.show_message("Get ready")
 	$Music.play()
 
+# ------------------------------------------------------
 func _on_MobTimer_timeout():
 	# Choose a random location on Path2D.
 	$MobSpawner/MobSpawnLocation.set_offset(randi())
@@ -53,25 +58,41 @@ func _on_MobTimer_timeout():
 	mob.linear_velocity = Vector2(rand_range(mob.MIN_SPEED, mob.MAX_SPEED), 0)
 	mob.linear_velocity = mob.linear_velocity.rotated(direction)
 
+# ------------------------------------------------------
 func _on_ScoreTimer_timeout():
 	score += 1
 	$HUD.update_score(score)
 
+# ------------------------------------------------------
 func _on_StartTimer_timeout():
 	$HUD.update_score_color(Color(1, 0, 0))
 	$MobTimer.start()
 	$ScoreTimer.start()
 	$ExtraLifeTimer.start()
 	# Enable Player's hitbox to make sure all old mobs are gone
-	$Player/CollisionShape2D.disabled = false
+	$Player/CollisionShape2D.set_deferred("disabled", false)
 
+# ------------------------------------------------------
+# Each 15 seconds:
+# - add 1 extra life
+# - stop timer if max extra_life
+# - update score color depending on extra lifes
 func _on_ExtraLifeTimer_timeout():
 	$Player.extra_life += 1
+	if ($Player.extra_life == 2):
+		$Player/ImmunityTimer.stop()
 	$Player.extra_life = clamp($Player.extra_life, 0, 2)
-	match $Player.extra_life:
-		1:
-			$HUD.update_score_color(Color(1, 1, 0))
-		2:
-			$HUD.update_score_color(Color(.28, .82, .8))
-		_:
-			$HUD.update_score_color(Color(1, 0, 0))
+	$HUD.update_score_color($Player.extra_life)
+
+# ------------------------------------------------------
+# When `immune` signal is send:
+# extra life - 1
+# update score color
+# Disactivate hitbox for 1.5 seconds
+func _on_Player_immune():
+	if ($Player.extra_life == 2):
+		$Player/ImmunityTimer.start()
+	$Player.extra_life -= 1
+	$Player/CollisionShape2D.set_deferred("disabled", true)
+	$Player/ImmunityTimer.start()
+	$HUD.update_score_color($Player.extra_life)

@@ -12,6 +12,10 @@ func _ready():
 	hide()
 	screen_size = get_viewport_rect().size
 	extra_life = 0
+	$Shield.modulate = Color(0,.75,1)
+	$Shield.visible = false
+	#$ShieldOn.interpolate_property($Shield, "scale", $Shield.scale, Vector2(0.395,0.395), 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	#$ShieldOff.interpolate_property($Shield, "scale", $Shield.scale, Vector2(0,0), 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 
 # Describe what the node/prefab will do at each frame / delta:
 # - check for inputs
@@ -50,11 +54,23 @@ func _process(delta):
 # - throw signal 'hit'
 # - disable collision so the 'hit' signal is send only once
 func _on_Player_body_entered(body):
-	hide()
-	emit_signal("hit")
 	$CollisionShape2D.set_deferred("disabled", true)
+	if extra_life == 0:
+		hide()
+		emit_signal("hit")
+	else:
+		emit_signal("immune")
+		$Shield.visible = true
+		#$ShieldOn.start()
+		#yield($ShieldOn, "tween_completed")
 
 func start(pos):
 	position = pos
 	show()
-	# Player's hitbox will be enabled when StartTimer stops (cf. Main.gd)
+# Player's hitbox will be enabled when StartTimer stops (cf. Main.gd)
+
+func _on_ImmunityTimer_timeout():
+	$CollisionShape2D.set_deferred("disabled", false)
+	#$ShieldOff.start()
+	#yield($ShieldOff, "tween_completed")
+	$Shield.visible = false
