@@ -32,7 +32,7 @@ They all contain a 'Dodge The Creeps.zip' file, itself containing the playable g
 
 ## To do list
 
-- Reverse relation between speed and size (?)
-- Give 1 extra life every 15 seconds
-- Highsore on main menu
-- On/Off music button on main menu
+- [ ] Reverse relation between speed and size (?)
+- [x] Give 1 extra life every 15 seconds
+- [ ] Highsore on main menu
+- [ ] On/Off music button on main menu
